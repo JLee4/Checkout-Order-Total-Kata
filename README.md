@@ -9,11 +9,13 @@
 Project is part of a grocery point-of-sale system. 
 Project deliverable is the business logic to calculate the pre-tax total price as items are scanned or entered at checkout.
 
+This project uses Java 8 for best compatibility and Gradle for build automation.
+
 ### Project Requirements
 
 * Keep a running total of items including any discounts or specials
 * Expose functions for use like an API (Doesn't necessarily imply a REST API)
-* Accept inputs for an item or an item and its weight such as "ground beef, 1 lb" or "can of soup"
+* Accept inputs for an item or an item and its weight such as "can of soup" or "ground beef, 1 lb"
 * Accept inputs to add or remove an item
 * Ability to query the total
 
