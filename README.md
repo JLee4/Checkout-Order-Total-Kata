@@ -18,6 +18,8 @@ This project uses Java 8 for best compatibility and Gradle for build automation.
 * Accept inputs for an item or an item and its weight such as "can of soup" or "ground beef, 1 lb"
 * Accept inputs to add or remove an item
 * Ability to query the total
+* Accept inputs to create a special for a set of items
+* Accept inputs to discount an existing item
 
 ### Project Use Cases
 
