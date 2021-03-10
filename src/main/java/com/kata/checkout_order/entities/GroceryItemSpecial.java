@@ -5,11 +5,12 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-class GroceryItemSpecial {
+public class GroceryItemSpecial {
     // range from 0 to 1, as in 0.2 = 20% off
     private final float discount = 0;
 
     // value of 0 means no limit
+    // can scan more items over the limit but special would not apply
     private final float limit = 0;
 
     // amount of items or weight of items to enable the discount
