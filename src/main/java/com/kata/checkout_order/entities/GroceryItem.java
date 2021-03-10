@@ -19,7 +19,7 @@ public class GroceryItem {
     private float amount = 0.0F;
 
     public void setAmount(float amount) {
-        if (!isWeighed && amount % 1 == 0) {
+        if (!isWeighed && amount % 1.0F != 0.0F) {
             throw new IllegalArgumentException("Non-weighed items cannot be fractional");
         }
         this.amount = amount;
