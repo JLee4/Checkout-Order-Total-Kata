@@ -1,25 +1,45 @@
 package com.kata.checkout_order.repositories;
 
 import com.kata.checkout_order.entities.GroceryItem;
+import com.kata.checkout_order.repositories.impl.GroceryItemRepositoryImpl;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.kata.checkout_order.constants.GroceryItemConstants.AVAILABLE_GROCERY_ITEMS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class GroceryItemRepositoryTest {
+    private static GroceryItemRepository mockGroceryItemRepository;
+    private final int nonWeightedItemIndex = 10;
+    private final int weightedItemIndex = 0;
+
+    @BeforeAll
+    static void setUp() {
+        mockGroceryItemRepository = new GroceryItemRepositoryImpl();
+    }
+
     // adding a scanned grocery item
     @Test
     public void addScannedItem_NoDiscount_Updates() {
+        GroceryItem mockItem = AVAILABLE_GROCERY_ITEMS.get(this.nonWeightedItemIndex);
+        assertEquals(mockItem.getPrice(), mockGroceryItemRepository.addScannedItem(mockItem.getName(), 1));
+        assertEquals(mockItem.getPrice() * 2, mockGroceryItemRepository.addScannedItem(mockItem.getName(), 1));
     }
 
     @Test
     public void addScannedWeightedItem_NoDiscount_Updates() {
+        GroceryItem mockItem = AVAILABLE_GROCERY_ITEMS.get(this.weightedItemIndex);
+        float weight = 0.5F;
+        assertEquals(mockItem.getPrice() * weight, mockGroceryItemRepository.addScannedWeightedItem(mockItem.getName(), weight));
     }
 
     @Test
-    public void addScannedItem_BeforeAddingDiscount_Updates() {
+    public void addScannedItem_AfterAddingDiscount_Updates() {
         // As in, a special is added after the item is scanned, the special should update the total price
     }
 
     @Test
-    public void addScannedWeightedItem_BeforeAddingDiscount_Updates() {
+    public void addScannedWeightedItem_AfterAddingDiscount_Updates() {
         // As in, a special is added after the item is scanned, the special should update the total price
     }
 
