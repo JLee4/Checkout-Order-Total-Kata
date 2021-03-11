@@ -171,17 +171,29 @@ public class GroceryItemRepositoryTest {
     // removing a scanned item
     @Test
     public void removeScannedItem_NoDiscount_Updates() {
+        assertEquals(mockNonWeightedItem.getPrice() * 2,
+                mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 2));
+        assertEquals(mockNonWeightedItem.getPrice(),
+                mockGroceryItemRepository.removeScannedItem(mockNonWeightedItem.getName(), 1));
     }
 
     @Test
     public void removeScannedWeightedItem_NoDiscount_Updates() {
+        assertEquals(mockWeightedItem.getPrice() * 1.5F,
+                mockGroceryItemRepository.addScannedItem(mockWeightedItem.getName(), 1.5F));
+        assertEquals(mockNonWeightedItem.getPrice(),
+                mockGroceryItemRepository.removeScannedItem(mockNonWeightedItem.getName(), 0.5F));
     }
 
     @Test
     public void removeScannedItem_WithAppliedDiscount_UpdatesWithoutDiscount() {
-    }
+        GroceryItemSpecial mockItemSpecial =
+                new GroceryItemSpecial(mockNonWeightedItem.getName(), 0.5F, 0, 2, 0, 0);
+        assertEquals(mockNonWeightedItem.getPrice() * 2 * mockItemSpecial.getDiscount(),
+                mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 2));
+        mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
 
-    @Test
-    public void removeScannedWeightedItem_WithAppliedDiscount_UpdatesWithoutDiscount() {
+        assertEquals(mockNonWeightedItem.getPrice(),
+                mockGroceryItemRepository.removeScannedItem(mockNonWeightedItem.getName(), 1));
     }
 }

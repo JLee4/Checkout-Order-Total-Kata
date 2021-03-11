@@ -10,7 +10,7 @@ public interface GroceryItemRepository {
 
     float addItemSpecial(GroceryItemSpecial itemSpecial);
 
-    float removeScannedItem(String itemName);
+    float removeScannedItem(String itemName, float amount);
 
     float getRunningTotal();
 

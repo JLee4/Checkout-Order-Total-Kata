@@ -36,7 +36,7 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
         return runningTotal;
     }
 
-    public float removeScannedItem(String itemName) {
+    public float removeScannedItem(String itemName, float amount) {
         return runningTotal;
     }
 
