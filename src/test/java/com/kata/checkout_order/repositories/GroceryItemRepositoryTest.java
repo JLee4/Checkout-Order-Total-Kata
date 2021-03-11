@@ -112,6 +112,17 @@ public class GroceryItemRepositoryTest {
     }
 
     @Test
+    public void addItemSpecial_RequiredAmountNotEnough_UpdatesWithoutSpecialApplied() {
+        float discount = 0.5F; // 50% off
+        GroceryItemSpecial mockItemSpecial =
+                new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 2, 1, 0);
+        mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
+        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
+        assertEquals(mockNonWeightedItem.getPrice(),
+                mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 1));
+    }
+
+    @Test
     public void addItemSpecial_RequiredAmountFreeItemDiscount_Updates() {
         float discount = 1.0F; // 100% off
         GroceryItemSpecial mockItemSpecial =
