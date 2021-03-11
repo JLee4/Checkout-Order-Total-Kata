@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class GroceryItemSpecial {
+    private final String itemName;
     // range from 0 to 1, as in 0.2 = 20% off
     private final float discount = 0;
 

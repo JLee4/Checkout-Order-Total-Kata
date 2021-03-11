@@ -3,20 +3,18 @@ package com.kata.checkout_order.repositories;
 import com.kata.checkout_order.entities.GroceryItem;
 import com.kata.checkout_order.entities.GroceryItemSpecial;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface GroceryItemRepository {
-    public float addScannedItem(String itemName, int amount);
+    float addScannedItem(String itemName, float amount);
 
-    public float addScannedWeightedItem(String itemName, float weight);
+    float addItemSpecial(GroceryItemSpecial itemSpecial);
 
-    public float addItemSpecial(GroceryItemSpecial itemSpecial);
+    float removeScannedItem(String itemName);
 
-    public float removeScannedItem(String itemName);
+    float getRunningTotal();
 
-    public float getRunningTotal();
+    Collection<GroceryItem> getItems();
 
-    public List<GroceryItem> getItems();
-
-    public List<GroceryItem> getAvailableGroceryItems();
+    Collection<GroceryItem> getAvailableGroceryItems();
 }

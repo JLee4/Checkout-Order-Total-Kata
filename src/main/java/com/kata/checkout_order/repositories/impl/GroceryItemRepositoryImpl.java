@@ -3,27 +3,32 @@ package com.kata.checkout_order.repositories.impl;
 import com.kata.checkout_order.entities.GroceryItem;
 import com.kata.checkout_order.entities.GroceryItemSpecial;
 import com.kata.checkout_order.repositories.GroceryItemRepository;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.kata.checkout_order.constants.GroceryItemConstants.AVAILABLE_GROCERY_ITEMS;
 
 /**
  * Mock class of the grocery item repository, just stores the entities in memory
  */
-@NoArgsConstructor
 public class GroceryItemRepositoryImpl implements GroceryItemRepository {
     private float runningTotal = 0.0F;
-    private List<GroceryItem> items = new ArrayList<>();
-    private List<GroceryItem> availableGroceryItems = new ArrayList<>(AVAILABLE_GROCERY_ITEMS);
+    private final Map<String, GroceryItem> items = new HashMap<>();
+    private final Map<String, GroceryItem> availableGroceryItems = new HashMap<>();
 
-    public float addScannedItem(String itemName, int amount) {
-        return runningTotal;
+    public GroceryItemRepositoryImpl() {
+        for (GroceryItem currItem : AVAILABLE_GROCERY_ITEMS) {
+            availableGroceryItems.put(currItem.getName(), currItem);
+        }
     }
 
-    public float addScannedWeightedItem(String itemName, float weight) {
+    public float addScannedItem(String itemName, float amount) {
+        items.putIfAbsent(itemName, availableGroceryItems.get(itemName));
+        GroceryItem item = items.get(itemName);
+        item.setAmount(item.getAmount() + amount);
+        runningTotal += (amount * item.getPrice());
         return runningTotal;
     }
 
@@ -39,11 +44,11 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
         return runningTotal;
     }
 
-    public List<GroceryItem> getItems() {
-        return items;
+    public Collection<GroceryItem> getItems() {
+        return items.values();
     }
 
-    public List<GroceryItem> getAvailableGroceryItems() {
-        return availableGroceryItems;
+    public Collection<GroceryItem> getAvailableGroceryItems() {
+        return availableGroceryItems.values();
     }
 }

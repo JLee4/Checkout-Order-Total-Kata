@@ -2,19 +2,19 @@ package com.kata.checkout_order.repositories;
 
 import com.kata.checkout_order.entities.GroceryItem;
 import com.kata.checkout_order.repositories.impl.GroceryItemRepositoryImpl;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.kata.checkout_order.constants.GroceryItemConstants.AVAILABLE_GROCERY_ITEMS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GroceryItemRepositoryTest {
-    private static GroceryItemRepository mockGroceryItemRepository;
+    private GroceryItemRepository mockGroceryItemRepository;
     private final int nonWeightedItemIndex = 10;
     private final int weightedItemIndex = 0;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         mockGroceryItemRepository = new GroceryItemRepositoryImpl();
     }
 
@@ -23,14 +23,14 @@ public class GroceryItemRepositoryTest {
     public void addScannedItem_NoDiscount_Updates() {
         GroceryItem mockItem = AVAILABLE_GROCERY_ITEMS.get(this.nonWeightedItemIndex);
         assertEquals(mockItem.getPrice(), mockGroceryItemRepository.addScannedItem(mockItem.getName(), 1));
-        assertEquals(mockItem.getPrice() * 2, mockGroceryItemRepository.addScannedItem(mockItem.getName(), 1));
+        assertEquals((mockItem.getPrice() * 2), mockGroceryItemRepository.addScannedItem(mockItem.getName(), 1));
     }
 
     @Test
     public void addScannedWeightedItem_NoDiscount_Updates() {
         GroceryItem mockItem = AVAILABLE_GROCERY_ITEMS.get(this.weightedItemIndex);
         float weight = 0.5F;
-        assertEquals(mockItem.getPrice() * weight, mockGroceryItemRepository.addScannedWeightedItem(mockItem.getName(), weight));
+        assertEquals(mockItem.getPrice() * weight, mockGroceryItemRepository.addScannedItem(mockItem.getName(), weight));
     }
 
     @Test
