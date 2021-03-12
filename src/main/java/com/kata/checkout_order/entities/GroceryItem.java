@@ -25,6 +25,9 @@ public class GroceryItem {
         this.amount = amount;
     }
 
+    @Setter
+    private float currentItemTotal = 0.0F;
+
     // Limit of specials on one grocery item not specified, assuming only one special at a time
     @Setter
     private GroceryItemSpecial special;

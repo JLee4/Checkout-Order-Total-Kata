@@ -6,11 +6,11 @@ import com.kata.checkout_order.entities.GroceryItemSpecial;
 import java.util.Collection;
 
 public interface GroceryItemRepository {
-    float addScannedItem(String itemName, float amount);
+    float addScannedItem(String itemName, float amountAdded);
 
-    float addItemSpecial(GroceryItemSpecial itemSpecial);
+    void addItemSpecial(GroceryItemSpecial itemSpecial);
 
-    float removeScannedItem(String itemName, float amount);
+    float removeScannedItem(String itemName, float amountRemoved);
 
     float getRunningTotal();
 

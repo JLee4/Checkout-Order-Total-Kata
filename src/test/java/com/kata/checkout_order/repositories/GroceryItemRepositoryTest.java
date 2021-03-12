@@ -18,6 +18,13 @@ public class GroceryItemRepositoryTest {
     @BeforeEach
     void setUp() {
         mockGroceryItemRepository = new GroceryItemRepositoryImpl();
+        // resetting the objects, deep copy is an alternative but don't want to import another third-party library
+        mockWeightedItem.setAmount(0);
+        mockWeightedItem.setCurrentItemTotal(0);
+        mockWeightedItem.setSpecial(null);
+        mockNonWeightedItem.setAmount(0);
+        mockNonWeightedItem.setCurrentItemTotal(0);
+        mockNonWeightedItem.setSpecial(null);
     }
 
     // adding a scanned grocery item
@@ -32,8 +39,8 @@ public class GroceryItemRepositoryTest {
     @Test
     public void addScannedWeightedItem_NoDiscount_Updates() {
         float weight = 0.5F;
-        assertEquals(mockNonWeightedItem.getPrice() * weight,
-                mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), weight));
+        assertEquals(mockWeightedItem.getPrice() * weight,
+                mockGroceryItemRepository.addScannedItem(mockWeightedItem.getName(), weight));
     }
 
     @Test
@@ -181,8 +188,8 @@ public class GroceryItemRepositoryTest {
     public void removeScannedWeightedItem_NoDiscount_Updates() {
         assertEquals(mockWeightedItem.getPrice() * 1.5F,
                 mockGroceryItemRepository.addScannedItem(mockWeightedItem.getName(), 1.5F));
-        assertEquals(mockNonWeightedItem.getPrice(),
-                mockGroceryItemRepository.removeScannedItem(mockNonWeightedItem.getName(), 0.5F));
+        assertEquals(mockWeightedItem.getPrice(),
+                mockGroceryItemRepository.removeScannedItem(mockWeightedItem.getName(), 0.5F));
     }
 
     @Test
