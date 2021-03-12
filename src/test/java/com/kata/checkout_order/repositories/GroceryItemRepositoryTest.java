@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.kata.checkout_order.constants.GroceryItemConstants.AVAILABLE_GROCERY_ITEMS;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GroceryItemRepositoryTest {
@@ -92,10 +91,10 @@ public class GroceryItemRepositoryTest {
         float discount = 0.5F; // 50% off
         float scannedAmount = 3;
         GroceryItemSpecial mockItemSpecial =
-                new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 2, 0, 0);
+                new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 2, 1, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
 
-        float expectedRunningTotal = (discount * mockNonWeightedItem.getPrice() * scannedAmount);
+        float expectedRunningTotal = (discount * mockNonWeightedItem.getPrice()) + (2 * mockNonWeightedItem.getPrice());
         assertEquals(expectedRunningTotal,
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 3));
     }
@@ -105,10 +104,10 @@ public class GroceryItemRepositoryTest {
         float discount = 0.5F; // 50% off
         float scannedAmount = 3.5F;
         GroceryItemSpecial mockItemSpecial =
-                new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 2, 0, 0);
+                new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 2, 1.5F, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
 
-        float expectedRunningTotal = (discount * mockWeightedItem.getPrice() * scannedAmount);
+        float expectedRunningTotal = (discount * 1.5F * mockNonWeightedItem.getPrice()) + (2 * mockNonWeightedItem.getPrice());
         assertEquals(expectedRunningTotal,
                 mockGroceryItemRepository.addScannedItem(mockWeightedItem.getName(), scannedAmount));
     }
@@ -186,9 +185,9 @@ public class GroceryItemRepositoryTest {
     public void removeScannedItem_WithAppliedDiscount_UpdatesWithoutDiscount() {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), 0.5F, 0, 2, 0, 0);
+        mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
         assertEquals(mockNonWeightedItem.getPrice() * 2 * mockItemSpecial.getDiscount(),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 2));
-        mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
 
         assertEquals(mockNonWeightedItem.getPrice(),
                 mockGroceryItemRepository.removeScannedItem(mockNonWeightedItem.getName(), 1));

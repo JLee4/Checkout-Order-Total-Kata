@@ -71,6 +71,34 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
     }
 
     private float calculateDiscountedTotal(GroceryItem item) {
-        return runningTotal;
+        GroceryItemSpecial itemSpecial = item.getSpecial();
+        float discountedAmount = item.getAmount();
+        float nonDiscountedAmount = 0;
+        float total;
+
+        if (itemSpecial.getRequiredAmount() > 0 && item.getAmount() > itemSpecial.getRequiredAmount()) {
+            nonDiscountedAmount = item.getAmount() % itemSpecial.getDiscountedAmount();
+            discountedAmount = item.getAmount() - nonDiscountedAmount;
+        }
+
+        if (itemSpecial.getSetDiscountPrice() > 0) {
+            nonDiscountedAmount = item.getAmount() % itemSpecial.getRequiredAmount();
+            discountedAmount = item.getAmount() - nonDiscountedAmount;
+        }
+
+        if (itemSpecial.getLimit() > 0 && item.getAmount() > itemSpecial.getLimit()) {
+            nonDiscountedAmount = (item.getAmount() - itemSpecial.getLimit());
+            discountedAmount = itemSpecial.getLimit();
+        }
+
+        if (itemSpecial.getSetDiscountPrice() > 0) {
+            total = ((discountedAmount / itemSpecial.getRequiredAmount()) * itemSpecial.getSetDiscountPrice())
+                    + (nonDiscountedAmount * item.getPrice());
+        } else {
+            float discountPrice = (1.0F - itemSpecial.getDiscount()) * item.getPrice();
+            total = (discountedAmount * discountPrice) + (nonDiscountedAmount * item.getPrice());
+        }
+
+        return total;
     }
 }
