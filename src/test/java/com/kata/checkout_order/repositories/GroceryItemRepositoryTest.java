@@ -54,7 +54,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 0, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
         assertEquals((1.0F - discount) * mockNonWeightedItem.getPrice() * (scannedAmount + 1),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 3));
     }
@@ -70,7 +69,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 2, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
 
         float expectedRunningTotal = (discount * mockWeightedItem.getPrice() * (scannedAmount + 1));
         assertEquals(expectedRunningTotal,
@@ -85,7 +83,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 0, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
         assertEquals(((1.0F - discount) * mockNonWeightedItem.getPrice() * scannedAmount),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 3));
     }
@@ -97,7 +94,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 2, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
 
         float expectedRunningTotal = (discount * mockNonWeightedItem.getPrice() * scannedAmount);
         assertEquals(expectedRunningTotal,
@@ -111,7 +107,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 2, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
 
         float expectedRunningTotal = (discount * mockWeightedItem.getPrice() * scannedAmount);
         assertEquals(expectedRunningTotal,
@@ -124,7 +119,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 2, 1, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
         assertEquals(mockNonWeightedItem.getPrice(),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 1));
     }
@@ -135,7 +129,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, 0, 1, 1, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
         assertEquals(mockNonWeightedItem.getPrice(),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 2));
     }
@@ -147,7 +140,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), discount, limit, 0, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
 
         float expectedRunningTotal = ((1.0F - discount) * mockNonWeightedItem.getPrice() * limit) + mockNonWeightedItem.getPrice();
         assertEquals(expectedRunningTotal,
@@ -160,7 +152,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), 0.0F, 0, 3, 0, discountedSetAmount);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
         assertEquals(discountedSetAmount,
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 3));
     }
@@ -170,7 +161,6 @@ public class GroceryItemRepositoryTest {
         GroceryItemSpecial mockItemSpecial =
                 new GroceryItemSpecial(mockNonWeightedItem.getName(), 0.0F, 0, 2, 0, 2.99F);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
-        assertArrayEquals(new GroceryItemSpecial[]{mockItemSpecial}, mockGroceryItemRepository.getItems().toArray());
         assertEquals(mockNonWeightedItem.getPrice(),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 1));
     }
