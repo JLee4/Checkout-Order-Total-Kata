@@ -1,16 +1,20 @@
 package com.kata.checkout_order.repositories;
 
 import com.kata.checkout_order.entities.GroceryItem;
+import com.kata.checkout_order.entities.GroceryItemSpecial;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
-/**
- * Mock class of the grocery item repository, just stores the entities in memory
- */
-public class GroceryItemRepository {
-    private static double runningTotal = 0D;
-    private static List<GroceryItem> items = new ArrayList<>();
+public interface GroceryItemRepository {
+    float addScannedItem(String itemName, float amountAdded);
 
-    // TODO
+    void addItemSpecial(GroceryItemSpecial itemSpecial);
+
+    float removeScannedItem(String itemName, float amountRemoved);
+
+    float getRunningTotal();
+
+    Collection<GroceryItem> getItems();
+
+    Collection<GroceryItem> getAvailableGroceryItems();
 }
