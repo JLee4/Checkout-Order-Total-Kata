@@ -72,23 +72,29 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
 
     private float calculateDiscountedTotal(GroceryItem item) {
         GroceryItemSpecial itemSpecial = item.getSpecial();
-        float discountedAmount = item.getAmount();
+        float discountedAmount = 0;
         float nonDiscountedAmount = 0;
+        float discountableAmount = item.getAmount();
         float total;
 
-        if (itemSpecial.getRequiredAmount() > 0 && item.getAmount() > itemSpecial.getRequiredAmount()) {
-            nonDiscountedAmount = item.getAmount() % itemSpecial.getDiscountedAmount();
-            discountedAmount = item.getAmount() - nonDiscountedAmount;
+        if (itemSpecial.getLimit() > 0 && item.getAmount() > itemSpecial.getLimit()) {
+            nonDiscountedAmount += (item.getAmount() - itemSpecial.getLimit());
+            discountableAmount = itemSpecial.getLimit();
+        }
+
+        if (itemSpecial.getRequiredAmount() > 0 && discountableAmount > itemSpecial.getRequiredAmount()) {
+            float discountableSet = itemSpecial.getRequiredAmount() + itemSpecial.getDiscountedAmount();
+            nonDiscountedAmount += discountableAmount * (itemSpecial.getRequiredAmount() / discountableSet);
+            discountedAmount += discountableAmount - nonDiscountedAmount;
         }
 
         if (itemSpecial.getSetDiscountPrice() > 0) {
-            nonDiscountedAmount = item.getAmount() % itemSpecial.getRequiredAmount();
-            discountedAmount = item.getAmount() - nonDiscountedAmount;
+            nonDiscountedAmount = discountableAmount % itemSpecial.getRequiredAmount();
+            discountedAmount = discountableAmount - nonDiscountedAmount;
         }
 
-        if (itemSpecial.getLimit() > 0 && item.getAmount() > itemSpecial.getLimit()) {
-            nonDiscountedAmount = (item.getAmount() - itemSpecial.getLimit());
-            discountedAmount = itemSpecial.getLimit();
+        if (discountedAmount <= 0 && discountableAmount > 0) {
+            discountedAmount = discountableAmount;
         }
 
         if (itemSpecial.getSetDiscountPrice() > 0) {
