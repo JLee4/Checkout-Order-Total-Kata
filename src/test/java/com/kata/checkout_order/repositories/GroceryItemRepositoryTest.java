@@ -107,7 +107,7 @@ public class GroceryItemRepositoryTest {
                 new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 2, 1.5F, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
 
-        float expectedRunningTotal = (discount * 1.5F * mockNonWeightedItem.getPrice()) + (2 * mockNonWeightedItem.getPrice());
+        float expectedRunningTotal = (discount * 1.5F * mockWeightedItem.getPrice()) + (2 * mockWeightedItem.getPrice());
         assertEquals(expectedRunningTotal,
                 mockGroceryItemRepository.addScannedItem(mockWeightedItem.getName(), scannedAmount));
     }
