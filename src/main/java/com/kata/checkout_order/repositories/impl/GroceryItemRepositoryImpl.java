@@ -93,8 +93,12 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
             discountedAmount = discountableAmount - nonDiscountedAmount;
         }
 
-        if (discountedAmount <= 0 && discountableAmount > 0) {
+        if (discountedAmount <= 0 && discountableAmount > 0 && discountableAmount >= itemSpecial.getRequiredAmount()) {
             discountedAmount = discountableAmount;
+        }
+
+        if (discountableAmount < itemSpecial.getRequiredAmount()) {
+            nonDiscountedAmount = discountableAmount;
         }
 
         if (itemSpecial.getSetDiscountPrice() > 0) {

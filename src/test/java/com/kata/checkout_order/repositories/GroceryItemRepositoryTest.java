@@ -43,7 +43,7 @@ public class GroceryItemRepositoryTest {
     }
 
     @Test
-    public void addScannedItem_BeforeAddingDiscount_Updates() {
+    public void addScannedItem_BeforeAddingDiscount_UpdatesWithDiscount() {
         // As in, a special is added after the item is scanned, the special should update the total price
         assertEquals(mockNonWeightedItem.getPrice(),
                 mockGroceryItemRepository.addScannedItem(mockNonWeightedItem.getName(), 1));
@@ -58,7 +58,7 @@ public class GroceryItemRepositoryTest {
     }
 
     @Test
-    public void addScannedWeightedItem_BeforeAddingDiscount_Updates() {
+    public void addScannedWeightedItem_BeforeAddingDiscount_UpdatesWithDiscount() {
         // As in, a special is added after the item is scanned, the special should update the total price
         assertEquals(mockWeightedItem.getPrice(),
                 mockGroceryItemRepository.addScannedItem(mockWeightedItem.getName(), 1));
@@ -66,7 +66,7 @@ public class GroceryItemRepositoryTest {
         float discount = 0.5F; // 50% off
         float scannedAmount = 3.5F;
         GroceryItemSpecial mockItemSpecial =
-                new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 2, 0, 0);
+                new GroceryItemSpecial(mockWeightedItem.getName(), discount, 0, 0, 0, 0);
         mockGroceryItemRepository.addItemSpecial(mockItemSpecial);
 
         float expectedRunningTotal = (discount * mockWeightedItem.getPrice() * (scannedAmount + 1));
