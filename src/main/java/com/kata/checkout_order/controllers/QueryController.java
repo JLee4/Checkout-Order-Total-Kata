@@ -16,16 +16,16 @@ public class QueryController extends BaseController {
 
     @GetMapping("/total")
     float getTotal() {
-        return 0;
+        return this.repository.getRunningTotal();
     }
 
     @GetMapping("/items")
     Collection<GroceryItem> getItems() {
-        return null;
+        return this.repository.getItems();
     }
 
     @GetMapping("/available-items")
     Collection<GroceryItem> getAvailableGroceryItems() {
-        return null;
+        return this.repository.getAvailableGroceryItems();
     }
 }

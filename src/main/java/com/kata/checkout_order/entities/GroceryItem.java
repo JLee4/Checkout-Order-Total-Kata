@@ -1,5 +1,6 @@
 package com.kata.checkout_order.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.NonNull;
@@ -31,4 +32,10 @@ public class GroceryItem {
     // Limit of specials on one grocery item not specified, assuming only one special at a time
     @Setter
     private GroceryItemSpecial special;
+
+    @JsonProperty("isWeighed")
+    public boolean getIsWeighed() {
+        // spring boot converts the key to "weighed" not "isWeighed"
+        return this.isWeighed;
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public abstract class BaseController {
-    private final GroceryItemRepository repository;
+    final GroceryItemRepository repository;
 
     @Autowired
     BaseController(@Qualifier("groceryItemRepository") GroceryItemRepository repository) {
