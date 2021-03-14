@@ -3,6 +3,8 @@ package com.kata.checkout_order.repositories.impl;
 import com.kata.checkout_order.entities.GroceryItem;
 import com.kata.checkout_order.entities.GroceryItemSpecial;
 import com.kata.checkout_order.repositories.GroceryItemRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,6 +15,8 @@ import static com.kata.checkout_order.constants.GroceryItemConstants.AVAILABLE_G
 /**
  * Mock class of the grocery item repository, just stores the entities in memory
  */
+@Service
+@Qualifier("groceryItemRepository")
 public class GroceryItemRepositoryImpl implements GroceryItemRepository {
     private float runningTotal = 0.0F;
     private final Map<String, GroceryItem> items = new HashMap<>();
@@ -31,7 +35,7 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
         return calculateItemTotal(item);
     }
 
-    public void addItemSpecial(GroceryItemSpecial itemSpecial) {
+    public boolean addItemSpecial(GroceryItemSpecial itemSpecial) {
         GroceryItem item = availableGroceryItems.get(itemSpecial.getItemName());
         item.setSpecial(itemSpecial);
         if (items.containsKey(itemSpecial.getItemName())) {
@@ -39,6 +43,7 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
             item.setCurrentItemTotal(this.calculateDiscountedTotal(item));
             runningTotal += calculateDiscountedTotal(item);
         }
+        return true;
     }
 
     public float removeScannedItem(String itemName, float amountRemoved) {

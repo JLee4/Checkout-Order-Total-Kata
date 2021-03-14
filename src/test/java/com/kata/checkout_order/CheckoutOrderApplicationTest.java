@@ -1,7 +1,13 @@
 package com.kata.checkout_order;
 
+import com.kata.checkout_order.controllers.DiscountController;
+import com.kata.checkout_order.controllers.GroceryItemController;
+import com.kata.checkout_order.controllers.QueryController;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  I name unit test methods like [UnitOfWork_StateUnderTest_ExpectedBehavior]
@@ -9,8 +15,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 */
 @SpringBootTest
 class CheckoutOrderApplicationTest {
-	@Test
-	void contextLoads() {
-	}
 
-}
+	@Autowired
+	private QueryController queryController;
+	@Autowired
+	private GroceryItemController groceryItemController;
+	@Autowired
+	private DiscountController discountController;
+
+	@Test
+	public void contextLoads() {
+		assertThat(queryController).isNotNull();
+		assertThat(groceryItemController).isNotNull();
+		assertThat(discountController).isNotNull();
+	}}
