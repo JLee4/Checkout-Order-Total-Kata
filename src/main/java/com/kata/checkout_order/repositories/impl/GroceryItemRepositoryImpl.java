@@ -35,7 +35,7 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
         return calculateItemTotal(item);
     }
 
-    public void addItemSpecial(GroceryItemSpecial itemSpecial) {
+    public boolean addItemSpecial(GroceryItemSpecial itemSpecial) {
         GroceryItem item = availableGroceryItems.get(itemSpecial.getItemName());
         item.setSpecial(itemSpecial);
         if (items.containsKey(itemSpecial.getItemName())) {
@@ -43,6 +43,7 @@ public class GroceryItemRepositoryImpl implements GroceryItemRepository {
             item.setCurrentItemTotal(this.calculateDiscountedTotal(item));
             runningTotal += calculateDiscountedTotal(item);
         }
+        return true;
     }
 
     public float removeScannedItem(String itemName, float amountRemoved) {

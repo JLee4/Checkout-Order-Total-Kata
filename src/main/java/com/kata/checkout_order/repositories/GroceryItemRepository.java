@@ -8,7 +8,7 @@ import java.util.Collection;
 public interface GroceryItemRepository {
     float addScannedItem(String itemName, float amountAdded);
 
-    void addItemSpecial(GroceryItemSpecial itemSpecial);
+    boolean addItemSpecial(GroceryItemSpecial itemSpecial);
 
     float removeScannedItem(String itemName, float amountRemoved);
 

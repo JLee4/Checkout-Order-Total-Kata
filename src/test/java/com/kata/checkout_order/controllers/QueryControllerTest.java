@@ -30,14 +30,14 @@ public class QueryControllerTest {
     private final Gson gson = new Gson();
 
     @Test
-    public void getTotal_returnsValidTotal() throws Exception {
+    public void getTotal_ReturnsValidTotal() throws Exception {
         float expectedTotal = 10.0F;
         when(repository.getRunningTotal()).thenReturn(expectedTotal);
         this.mockMvc.perform(get("/query/total")).andExpect(status().isOk()).andExpect(content().string(String.valueOf(expectedTotal)));
     }
 
     @Test
-    public void getItems_returnsValidItems() throws Exception {
+    public void getItems_ReturnsValidItems() throws Exception {
         List<GroceryItem> expectedItems = new ArrayList<>();
         expectedItems.add(AVAILABLE_GROCERY_ITEMS.get(0));
         when(repository.getItems()).thenReturn(expectedItems);
@@ -45,7 +45,7 @@ public class QueryControllerTest {
     }
 
     @Test
-    public void getAvailableItems_returnsValidItems() throws Exception {
+    public void getAvailableItems_ReturnsValidItems() throws Exception {
         when(repository.getAvailableGroceryItems()).thenReturn(AVAILABLE_GROCERY_ITEMS);
         this.mockMvc.perform(get("/query/available-items")).andExpect(status().isOk()).andExpect(content().json(gson.toJson(AVAILABLE_GROCERY_ITEMS)));
     }
