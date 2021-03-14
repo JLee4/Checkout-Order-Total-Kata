@@ -3,6 +3,8 @@ package com.kata.checkout_order.repositories.impl;
 import com.kata.checkout_order.entities.GroceryItem;
 import com.kata.checkout_order.entities.GroceryItemSpecial;
 import com.kata.checkout_order.repositories.GroceryItemRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,6 +15,8 @@ import static com.kata.checkout_order.constants.GroceryItemConstants.AVAILABLE_G
 /**
  * Mock class of the grocery item repository, just stores the entities in memory
  */
+@Service
+@Qualifier("groceryItemRepository")
 public class GroceryItemRepositoryImpl implements GroceryItemRepository {
     private float runningTotal = 0.0F;
     private final Map<String, GroceryItem> items = new HashMap<>();

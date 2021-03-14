@@ -10,7 +10,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CheckoutOrderApplicationTest {
 	@Test
-	void contextLoads() {
-	}
-
+	void contextLoads() {}
 }
